@@ -36,6 +36,74 @@ img{
   display:block;
 }
 
+.gallery-card img,
+.project img,
+.activity-card img{
+  cursor:zoom-in;
+}
+
+.image-lightbox{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:16px;
+  padding:64px 24px 28px;
+  background:rgba(11,18,26,.92);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .2s ease, visibility .2s ease;
+}
+
+.image-lightbox.is-open{
+  opacity:1;
+  visibility:visible;
+}
+
+.lightbox-image{
+  width:auto;
+  max-width:min(1100px, 92vw);
+  max-height:78vh;
+  object-fit:contain;
+  border-radius:12px;
+  box-shadow:0 22px 70px rgba(0,0,0,.4);
+  cursor:zoom-out;
+}
+
+.lightbox-caption{
+  min-height:1.4em;
+  color:#fff;
+  text-align:center;
+  font-size:.95rem;
+}
+
+.lightbox-close{
+  position:absolute;
+  top:18px;
+  right:24px;
+  width:46px;
+  height:46px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:50%;
+  color:#fff;
+  background:rgba(255,255,255,.1);
+  font-size:2rem;
+  line-height:1;
+  cursor:pointer;
+}
+
+.lightbox-close:hover{
+  background:var(--orange);
+  border-color:var(--orange);
+}
+
+body.lightbox-open{
+  overflow:hidden;
+}
+
 a{
   text-decoration:none;
   color:inherit;
@@ -478,6 +546,7 @@ a{
   position:absolute;
   inset:35% 0 0;
   background:linear-gradient(transparent,rgba(0,0,0,.76));
+  pointer-events:none;
 }
 
 .activity-card:hover img{
@@ -491,6 +560,7 @@ a{
   right:24px;
   bottom:22px;
   color:#fff;
+  pointer-events:none;
 }
 
 .activity-info span{
