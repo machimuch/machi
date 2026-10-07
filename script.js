@@ -149,3 +149,40 @@ lightbox?.addEventListener("click", event => {
 document.addEventListener("keydown", event => {
   if (event.key === "Escape" && lightbox?.classList.contains("is-open")) closeLightbox();
 });
+
+// =========================
+// Responsive navigation menu
+// =========================
+const navToggle = document.querySelector(".nav-toggle");
+const primaryNavigation = document.querySelector("#primary-navigation");
+
+function setNavigationOpen(isOpen) {
+  if (!navToggle || !primaryNavigation) return;
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+  navToggle.setAttribute("aria-label", isOpen ? "Tutup menu navigasi" : "Buka menu navigasi");
+  primaryNavigation.classList.toggle("is-open", isOpen);
+}
+
+navToggle?.addEventListener("click", () => {
+  const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+  setNavigationOpen(!isOpen);
+});
+
+primaryNavigation?.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => setNavigationOpen(false));
+});
+
+document.addEventListener("click", event => {
+  if (!primaryNavigation?.classList.contains("is-open")) return;
+  if (!primaryNavigation.contains(event.target) && !navToggle?.contains(event.target)) {
+    setNavigationOpen(false);
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") setNavigationOpen(false);
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 860) setNavigationOpen(false);
+});
